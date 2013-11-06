@@ -1,11 +1,14 @@
 %global php_zendabiver %((echo 0; php -i 2>/dev/null | sed -n 's/^PHP Extension => //p') | tail -1)
 %global php_extdir %(php-config --extension-dir 2>/dev/null || echo %{_libdir}/php4)                     
 %global pecl_name memcached
+%global real_name php-pecl-memcached
+%global basever 2
+%global php_base php54
 
 Summary:      Extension to work with the Memcached caching daemon
-Name:         php54-pecl-memcached
+Name:         %{php_base}-pecl-memcached
 Version:      2.1.0
-Release:      2.ius%{?dist}
+Release:      3.ius%{?dist}
 License:      PHP
 Group:        Development/Languages
 URL:          http://pecl.php.net/package/%{pecl_name}
@@ -14,14 +17,15 @@ Source:       http://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 
 BuildRoot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires: php54-devel, php54-pear
+BuildRequires: %{php_base}-devel, %{php_base}-pear
 BuildRequires: libmemcached10-devel >= 1.0.13
 BuildRequires: zlib-devel
 
 # This is EPEL-5 specific
-Requires:     php54-zend-abi = %{php_zendabiver}
-
-Provides:     php54-pecl(%{pecl_name}) = %{version}-%{release}
+Requires:     %{php_base}-zend-abi = %{php_zendabiver}
+Provides:     %{real_name} = %{version}-%{release}
+Provides:     php-pecl(%{pecl_name}) = %{version}-%{release}
+Provides:     %{php_base}-pecl(%{pecl_name}) = %{version}-%{release}
 
 
 %description
@@ -85,6 +89,9 @@ EOF
 
 
 %changelog
+* Wed Nov 06 2013 Ben Harper <ben.harper@rackspace.com> -  2.1.0-3.ius
+- adding provides per LB bug 1052542 comment #28
+
 * Tue Nov 13 2012 Ben Harper <ben.harper@rackspace.com> -  2.1.0-2.ius
 - building off libmemcached10-1.0.13-2
 
