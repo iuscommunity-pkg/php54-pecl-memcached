@@ -7,8 +7,8 @@
 
 Summary:      Extension to work with the Memcached caching daemon
 Name:         %{php_base}-pecl-memcached
-Version:      2.1.0
-Release:      3.ius%{?dist}
+Version:      2.2.0
+Release:      1.ius%{?dist}
 License:      PHP
 Group:        Development/Languages
 URL:          http://pecl.php.net/package/%{pecl_name}
@@ -89,6 +89,9 @@ EOF
 
 
 %changelog
+* Wed Apr 02 2014 Ben Harper <ben.harper@rackspace.com> - 2.2.0-1.ius
+- Latest sources from upstream
+
 * Wed Nov 06 2013 Ben Harper <ben.harper@rackspace.com> -  2.1.0-3.ius
 - adding provides per LB bug 1052542 comment #28
 
